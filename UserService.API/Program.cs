@@ -2,6 +2,7 @@ using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using UserService.Application.Services;
 using UserService.Domain.Repositories;
@@ -20,8 +21,12 @@ builder.Services.AddSwaggerGen();
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
-builder.Services.AddDbContext<UserDbContext>(options =>
-            options.UseSqlServer(builder.Configuration.GetConnectionString("UserDbConnection")));
+builder.Services.AddDbContext<UserDbContext>(options =>{
+            options.UseSqlServer(builder.Configuration.GetConnectionString("UserDbConnection"),
+            sql=>sql.EnableRetryOnFailure());
+            options.EnableDetailedErrors();
+            options.EnableSensitiveDataLogging();
+            });
 builder.Services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
             {
                 // Password policy
