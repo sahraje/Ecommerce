@@ -1,0 +1,16 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+         {
+            "name": "Launch UserService.API",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}/UserService.API/bin/Debug/net10.0/UserService.API.dll",
+            "cwd": "${workspaceFolder}/UserService.API",
+            "console": "integratedTerminal",
+            "stopAtEntry": false
+        }
+    ]
+}
+
